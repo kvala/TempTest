@@ -32,14 +32,24 @@ public class NetflixQuestion {
 	}
 
 	public Calendar business_days_from_now(int day) {
-		/*
-		 * if (day <= 0) { throw new Exception("Invalid day input"); }
-		 * 
-		 * Calendar today = Calendar.today(); int i = 1; while (i <= day) {
-		 * today = today.plusDays(1); if (today.isWeekday()) { i++; } } return
-		 * today;
-		 */
 
+		/*
+		if (day <= 0) {
+			throw new Exception("Invalid day input");
+		}
+
+		Calendar today = Calendar.today();
+		int i = 1;
+		while (i <= day) {
+			today = today.plusDays(1);
+			if (today.isWeekday()) {
+				i++;
+			}
+		}
+		return today;
+
+		*/
+		
 		// remove below line which is returing null.
 		return null;
 	}
