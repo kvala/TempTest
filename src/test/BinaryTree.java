@@ -1,11 +1,12 @@
 package test;
 
 public class BinaryTree {
-	int data;
-	BinaryTree left;
-	BinaryTree right;
+	public int data;
+	public BinaryTree left;
+	public BinaryTree right;
 
 	public BinaryTree(int data) {
 		this.data = data;
 	}
+	
 }
