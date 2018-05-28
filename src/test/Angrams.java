@@ -11,6 +11,9 @@ public class Angrams {
 
 	
 	public static void main(String[] args) {
+		
+		System.out.println(isAngram1("test", "tset"));
+		
 		//String[] myArray = { "dog", "god", "hat", "fan", "anf" };
 		String[] myArray = { "star", "dog", "car", "rats", "arc" };
 		List<List<String>> out = groupAnagrams(myArray);
@@ -45,5 +48,47 @@ public class Angrams {
 			res.add(item);
 		}
 		return res;
+	}
+	
+	public static Boolean isAngram(String input1, String input2) {
+
+		if (input1.length() != input2.length()) {
+			return false;
+		}
+
+		char[] char1 = input1.toCharArray();
+		char[] char2 = input2.toCharArray();
+		Arrays.sort(char1);
+		Arrays.sort(char2);
+
+		for (int i = 0; i < input1.length(); i++) {
+			if (char1[i] != char2[i]) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static Boolean isAngram1(String input1, String input2) {
+
+		if (input1.length() != input2.length()) {
+			return false;
+		}
+
+		int[] counter = new int[256];
+		Arrays.fill(counter, 0);
+
+		for (int i = 0; i < input1.length(); i++) {
+			counter[input1.charAt(i)] += 1;
+			counter[input2.charAt(i)] -= 1;
+		}
+
+		for (int i = 0; i < counter.length; i++) {
+			if (counter[i] != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
