@@ -4,7 +4,7 @@ public class Fibonacci {
 
 	public static void main(String[] args) {
 
-		System.out.println(fibDynamic(6));
+		System.out.println(fibsum(3));
 
 	}
 
@@ -42,8 +42,6 @@ public class Fibonacci {
 
 	public static int fibsum(int number) {
 		int s1 = 1, s2 = 1, temp;
-		if (number <= 1)
-			return s2;
 
 		for (int i = 2; i < number; i++) {
 			temp = s1 + s2;
