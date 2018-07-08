@@ -70,6 +70,7 @@ public class PrintBinaryTreeVertically {
 
 	}
 
+	//if print order matters
 	public static HashMap<Integer, ArrayList<Integer>> verticlePrintByLevel(BinaryTree node) {
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
 		Queue<BinaryTree> que = new LinkedList<BinaryTree>();
@@ -80,6 +81,9 @@ public class PrintBinaryTreeVertically {
 
 		while (!que.isEmpty()) {
 			BinaryTree current = que.remove();
+			
+			//We need to push BinaryTree node and key to Queue
+			
 		}
 		return map;
 
