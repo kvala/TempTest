@@ -2,19 +2,13 @@ package test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PrintBinaryTreeVertically {
 
 	public static void main(String[] args) {
-		
-		
-		String s = "ilike";
-		
-		System.out.println(s.substring(1,5));
-		
-		
+
 		BinaryTree n20 = new BinaryTree(20);
 		BinaryTree n8 = new BinaryTree(8);
 		BinaryTree n22 = new BinaryTree(22);
@@ -22,6 +16,11 @@ public class PrintBinaryTreeVertically {
 		BinaryTree n12 = new BinaryTree(12);
 		BinaryTree n10 = new BinaryTree(10);
 		BinaryTree n14 = new BinaryTree(14);
+
+		BinaryTree n21 = new BinaryTree(21);
+
+		BinaryTree n6 = new BinaryTree(6);
+		BinaryTree n7 = new BinaryTree(7);
 
 		n20.left = n8;
 		n20.right = n22;
@@ -32,13 +31,57 @@ public class PrintBinaryTreeVertically {
 		n12.left = n10;
 		n12.right = n14;
 
-		HashMap<Integer, ArrayList<Integer>> map = printbycolumn(n20, 0);
+		n22.left = n21;
 
-		Iterator it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
+		n4.right = n6;
+		n6.right = n7;
+
+		HashMap<Integer, ArrayList<Integer>> map = verticlePrint(n20);
+
+		for (int key : map.keySet()) {
+			System.out.println(key + " = " + map.get(key));
 		}
+
+	}
+
+	public static HashMap<Integer, ArrayList<Integer>> verticlePrint(BinaryTree node) {
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+		traverse(node, 0, map);
+		return map;
+	}
+
+	public static void traverse(BinaryTree node, int distance, HashMap<Integer, ArrayList<Integer>> map) {
+		if (node == null) {
+			return;
+		}
+
+		if (map.containsKey(distance)) {
+			ArrayList<Integer> old = map.get(distance);
+			old.add(node.data);
+		} else {
+			ArrayList<Integer> ndata = new ArrayList<Integer>();
+			ndata.add(node.data);
+			map.put(distance, ndata);
+
+		}
+
+		traverse(node.left, distance - 1, map);
+		traverse(node.right, distance + 1, map);
+
+	}
+
+	public static HashMap<Integer, ArrayList<Integer>> verticlePrintByLevel(BinaryTree node) {
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+		Queue<BinaryTree> que = new LinkedList<BinaryTree>();
+		if (node == null) {
+			return map;
+		}
+		que.add(node);
+
+		while (!que.isEmpty()) {
+			BinaryTree current = que.remove();
+		}
+		return map;
 
 	}
 
