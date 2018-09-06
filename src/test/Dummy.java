@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -355,7 +357,6 @@ public class Dummy {
 
 		boolean[][] lookup = new boolean[n + 1][m + 1];
 
-		
 		lookup[0][0] = true;
 
 		for (int j = 1; j <= m; j++)
@@ -378,7 +379,311 @@ public class Dummy {
 		return lookup[n][m];
 	}
 
+	public static float power(float x, int y) {
+		float temp;
+		if (y == 0)
+			return 1;
+		temp = power(x, y / 2);
+
+		if (y % 2 == 0)
+			return temp * temp;
+		else {
+			if (y > 0)
+				return x * temp * temp;
+			else
+				return (temp * temp) / x;
+		}
+	}
+
+	public static String addBinary(String a, String b) {
+		int ae = a.length() - 1, be = b.length() - 1;
+		StringBuilder sb = new StringBuilder();
+		int c = 0;
+		while (ae >= 0 || be >= 0) {
+			int sum = 0;
+			if (ae >= 0) {
+				sum += (a.charAt(ae) - '0');
+			}
+			if (be >= 0) {
+				sum += (b.charAt(be) - '0');
+			}
+
+			sum += c;
+
+			c = sum / 2;
+			sum = sum % 2;
+
+			sb.append(sum);
+			be--;
+			ae--;
+		}
+
+		if (c > 0) {
+			sb.append(c);
+		}
+
+		return sb.reverse().toString();
+	}
+
+	public void sortColors(int[] nums) {
+		int l = 0, m = 0, h = nums.length - 1;
+		while (m <= h) {
+			if (nums[m] == 0) {
+				swap(nums, l, m);
+				l++;
+				m++;
+			} else if (nums[m] == 1) {
+				m++;
+			} else {
+				swap(nums, m, h);
+				h--;
+			}
+		}
+	}
+
+	public void swap(int[] nums, int p1, int p2) {
+		int temp = nums[p1];
+		nums[p1] = nums[p2];
+		nums[p2] = temp;
+	}
+
+	// Correct solution
+	public static String minWindow2(String s, String t) {
+		if (t.length() > s.length()) {
+			return "";
+		}
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		for (int i = 0; i < t.length(); i++) {
+			Integer d = map.get(t.charAt(i));
+			if (d == null) {
+				map.put(t.charAt(i), 0);
+				d = 0;
+			}
+			map.put(t.charAt(i), d + 1);
+		}
+
+		int st = 0, e = 0, c = t.length(), f = 0, l = 0, fl = Integer.MAX_VALUE;
+		while (e < s.length()) {
+			char cd = s.charAt(e);
+			if (map.containsKey(cd)) {
+				if (map.get(cd) > 0) {
+					c--;
+				}
+				map.put(cd, map.get(cd) - 1);
+			}
+
+			e++;
+
+			while (c == 0) {
+
+				if (e - st < fl) {
+					fl = e - st;
+					f = st;
+					l = e;
+				}
+				char c1 = s.charAt(st);
+				if (map.containsKey(c1)) {
+					map.put(c1, map.get(c1) + 1);
+
+					if (map.get(c1) > 0) {
+						c++;
+					}
+				}
+				st++;
+
+			}
+		}
+
+		if (fl == Integer.MAX_VALUE) {
+			return "";
+		}
+		return s.substring(f, l);
+	}
+
+	// This solution does not work for duplicates. e.g. aa aa => aa
+	public static String minWindow(String s, String t) {
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		for (int i = 0; i < t.length(); i++) {
+			Integer d = map.get(t.charAt(i));
+			if (d == null) {
+				map.put(t.charAt(i), 0);
+				d = 0;
+			}
+			map.put(t.charAt(i), d++);
+		}
+		int st = 0, mw = Integer.MAX_VALUE, f = 0, l = 0, i = 0;
+		while (i < s.length() && st < s.length()) {
+			if (map.containsKey(s.charAt(i))) {
+				map.put(s.charAt(i), map.get(s.charAt(i)) - 1);
+			}
+			if (!map.containsValue(0)) {
+				if (i - st < mw) {
+					mw = i - st;
+					f = st;
+					l = i;
+				}
+
+				for (int j = 0; j < t.length(); j++) {
+					Integer d = map.get(t.charAt(j));
+					map.put(t.charAt(j), d++);
+				}
+
+				st++;
+				i = st;
+				continue;
+			}
+			i++;
+		}
+		return s.substring(f, l + 1);
+	}
+
+	public UndirectedGraphNode cloneGraph2(UndirectedGraphNode node) {
+		if (node == null) {
+			return null;
+		}
+
+		HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+		Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+
+		UndirectedGraphNode nn = new UndirectedGraphNode(node.label);
+		queue.offer(node);
+		map.put(node, nn);
+
+		while (!queue.isEmpty()) {
+			UndirectedGraphNode current = queue.poll();
+			List<UndirectedGraphNode> neighbors = current.neighbors;
+
+			for (UndirectedGraphNode n : neighbors) {
+				if (!map.containsKey(n)) {
+					UndirectedGraphNode cn = new UndirectedGraphNode(n.label);
+					map.put(n, cn);
+					queue.offer(n);
+					map.get(current).neighbors.add(cn);
+				} else {
+					UndirectedGraphNode cn = map.get(n);
+					map.get(current).neighbors.add(cn);
+
+				}
+			}
+
+		}
+
+		return nn;
+
+	}
+
+	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+		if (node == null) {
+			return null;
+		}
+
+		HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+		Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+		queue.offer(node);
+
+		while (!queue.isEmpty()) {
+			UndirectedGraphNode n = queue.poll();
+			if (!map.containsKey(n)) {
+				UndirectedGraphNode nn = new UndirectedGraphNode(n.label);
+				map.put(n, nn);
+			} else {
+				continue;
+			}
+			for (UndirectedGraphNode cn : n.neighbors) {
+				queue.offer(cn);
+			}
+		}
+
+		for (UndirectedGraphNode n : map.keySet()) {
+			UndirectedGraphNode nn = map.get(n);
+			for (UndirectedGraphNode cn : n.neighbors) {
+				nn.neighbors.add(map.get(cn));
+			}
+		}
+
+		return map.get(node);
+
+	}
+
+	public static boolean validTreeBFS(int n, int[][] edges) {
+		HashMap<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
+		for (int i = 0; i < n; i++) {
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			map.put(i, list);
+		}
+
+		for (int[] edge : edges) {
+			map.get(edge[0]).add(edge[1]);
+			map.get(edge[1]).add(edge[0]);
+		}
+
+		boolean[] visited = new boolean[n];
+
+		LinkedList<Integer> queue = new LinkedList<Integer>();
+		queue.offer(0);
+		while (!queue.isEmpty()) {
+			int top = queue.poll();
+			if (visited[top])
+				return false;
+
+			visited[top] = true;
+
+			for (int i : map.get(top)) {
+				if (!visited[i])
+					queue.offer(i);
+			}
+		}
+
+		for (boolean b : visited) {
+			if (!b)
+				return false;
+		}
+
+		return true;
+	}
+
+	public static int maxProfit(int[] prices) {
+		int i = 0;
+		int valley = prices[0];
+		int peak = prices[0];
+		int maxprofit = 0;
+		while (i < prices.length - 1) {
+			while (i < prices.length - 1 && prices[i] >= prices[i + 1])
+				i++;
+			valley = prices[i];
+			while (i < prices.length - 1 && prices[i] <= prices[i + 1])
+				i++;
+			peak = prices[i];
+			maxprofit += peak - valley;
+		}
+		return maxprofit;
+	}
+
 	public static void main(String args[]) {
+
+		// int[] data = new int[] { 7, 1, 5, 3, 6, 4 };
+		// System.out.println(maxProfit(data));
+		// [[0, 1], [0, 2], [0, 3], [1, 4]]
+		// [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]
+//		int[][] data = new int[][] { { 0, 1 }, { 2, 3 }, };
+
+		// System.out.println(isValidGraphTree(data.length, data));
+//		System.out.println(validTreeBFS(4, data));
+
+//		UndirectedGraphNode n0 = new UndirectedGraphNode(0);
+//		UndirectedGraphNode n1 = new UndirectedGraphNode(1);
+//		UndirectedGraphNode n2 = new UndirectedGraphNode(2);
+//
+//		n0.neighbors.add(n1);
+//		n0.neighbors.add(n2);
+//		n1.neighbors.add(n2);
+//		n2.neighbors.add(n2);
+//
+//		Dummy d = new Dummy();
+//		UndirectedGraphNode o = d.cloneGraph(n0);
+//
+//		System.out.println(o.neighbors.size());
+		// System.out.println(minWindow2("ADOBECODEBANC", "ABC"));
 		// System.out.println(isMatch("aab", "c*a*b"));
 		// System.out.println(romanToDecimal("IIIIV"));
 		// System.out.println(threeSum2(new int[]{ 1, 4, 7, 6, 10, 8 }, 22));
@@ -410,8 +715,21 @@ public class Dummy {
 		// System.out.println(multiply("42", "32"));
 
 //		System.out.println(strmatch("a", "*?*b"));
-		
-		
-		
+
+//		System.out.println(power(34.00515F, -3));
+
+		// System.out.println(addBinary("1010", "1011"));
+
 	}
+
 }
+
+class UndirectedGraphNode {
+	int label;
+	List<UndirectedGraphNode> neighbors;
+
+	UndirectedGraphNode(int x) {
+		label = x;
+		neighbors = new ArrayList<UndirectedGraphNode>();
+	}
+};

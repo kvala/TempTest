@@ -78,11 +78,7 @@ aardwol
   * HashMap<char, int>
  */
 
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
 
 public class Solution {
 
@@ -94,33 +90,78 @@ public class Solution {
 			String p = input.get(i);
 			String c = input.get(i + 1);
 
-			char[] pc = p.toCharArray();
-			char[] cc = c.toCharArray();
-			int ps = 0, pend = pc.length;
-			int cs = 0, cend = cc.length;
-			while (ps < pend && cs < cend) {
-				if (pc[ps] != cc[cs]) {
-					// cc child
-					// pc parent
-					char child = cc[cs];
-					char parent = pc[ps];
-					if (!childMap.containsKey(child)) {
-						List<Character> newList = new ArrayList<Character>();
-						newList.add(parent);
-						childMap.put(child, newList);
-					} else {
-						List<Character> data = childMap.get(child);
-						data.add(parent);
-						childMap.put(child, data);
+			for (int j = 0; j < Math.min(p.length(), c.length()); j++) {
+				if (p.charAt(j) != c.charAt(j)) {
+					List<Character> data = childMap.get(c.charAt(j));
+					if (data == null) {
+						data = new ArrayList<Character>();
 					}
+
+					data.add(p.charAt(j));
+					childMap.put(c.charAt(j), data);
+
+					Integer cnt = counter.get(c.charAt(j));
+					if (cnt == null) {
+						cnt = 1;
+					} else {
+						cnt++;
+					}
+					counter.put(c.charAt(j), cnt);
+
+					Integer pcnt = counter.get(p.charAt(j));
+					if (pcnt == null) {
+						counter.put(p.charAt(j), 0);
+					}
+
+					break;
 				}
+			}
+
+			while (!counter.isEmpty()) {
+
 			}
 		}
 
 		return null;
 	}
 
+	public static String simplifyPath(String path) {
+
+		Stack<String> stack = new Stack<String>();
+		String[] paths = path.split("/");
+
+		for (String p : paths) {
+			if (p.equals("..")) {
+				if (!stack.isEmpty()) {
+					stack.pop();
+				}
+			} else if (!p.equals(".") && !p.isEmpty()) {
+				stack.push(p);
+			}
+		}
+
+		StringBuilder sb = new StringBuilder();
+		for (String l : stack) {
+			sb.append("/");
+			sb.append(l);
+		}
+
+		String result = sb.toString();
+		return result.isEmpty() ? "/" : result;
+	}
+
 	public static void main(String args[]) throws Exception {
+
+		String data = "/home//foo/w";
+
+		System.out.println(simplifyPath(data));
+		/*
+		 * ArrayList<String> data = new ArrayList<String>(); data.add("lll");
+		 * data.add("lpa"); data.add("lpp"); data.add("lpb"); data.add("apl");
+		 * data.add("b");
+		 * 
+		 * Solution s = new Solution(); System.out.println(s.alienSorting(data));
+		 */
 		/* Enter your code here. Read input from STDIN. Print output to STDOUT */
 	}
 }
