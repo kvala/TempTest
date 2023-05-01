@@ -30,7 +30,7 @@ public class LogestSubString {
 //		Stream<Integer> highNumsSeq = sequentialStream.filter(p -> p > 90);
 //		highNumsSeq.forEach(p -> System.out.println("High Nums sequential=" + p));
 
-		System.out.println(lengthOfLongestSubstrings("abcdaghijklmnog"));
+		System.out.println(lengthOfLongestSubstring2("abcdaghijklmnog"));
 	}
 
 	public static int lengthOfLongestSubstring(String s) {
