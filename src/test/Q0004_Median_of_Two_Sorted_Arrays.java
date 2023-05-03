@@ -49,8 +49,8 @@ public class Q0004_Median_of_Two_Sorted_Arrays {
 
     public static void main(String[] args){
         Q0004_Median_of_Two_Sorted_Arrays c = new Q0004_Median_of_Two_Sorted_Arrays();
-        int[] a = {1, 3};
-        int[] b = {2};
+        int[] a = {1, 2};
+        int[] b = {3};
 
         System.out.print(c.findMedianSortedArrays(a,b));
     }
