@@ -51,7 +51,8 @@ public class Q15_ThreeSum {
 
     public static void main (String[] args){
         Q15_ThreeSum c = new Q15_ThreeSum();
-        int[] input = {-1,0,1,2,-1,-4};
+        //int[] input = {-1,0,1,2,-1,-4};
+        int[] input = {2,2,2};
         for (List<Integer> out : c.threeSum(input)){
             System.out.println(out);
         }
