@@ -1,6 +1,6 @@
 package test;
 
-public class Q20_nthElement {
+public class Q19_nthElement {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null)
             return null;
@@ -35,7 +35,7 @@ public class Q20_nthElement {
     }
 
     public static void main(String[] args){
-        Q20_nthElement c = new Q20_nthElement();
+        Q19_nthElement c = new Q19_nthElement();
         ListNode input = new ListNode(1);
         System.out.println(c.removeNthFromEnd(input, 5));
     }
