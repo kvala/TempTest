@@ -1,4 +1,4 @@
-public class Q {
+public class Q2119_ReversalNumber {
     public boolean isSameAfterReversals(int num) {
         // If the number is 0, it's the same after reversals.
         if (num == 0) {
@@ -9,7 +9,7 @@ public class Q {
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Q2119_ReversalNumber solution = new Q2119_ReversalNumber();
 
         // Test cases from the problem description and some additional ones
         System.out.println("Input: 526, Output: " + solution.isSameAfterReversals(526)); // Expected: true
