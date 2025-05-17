@@ -1,4 +1,4 @@
-class Solution {
+public class Q824GoatLatin {
     public String toGoatLatin(String sentence) {
            // Use a HashSet for efficient vowel checking.
         Set<Character> vowels = new HashSet<>();
