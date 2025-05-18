@@ -37,10 +37,8 @@ public class Q1399_CountLargestGroup {
 
         int sum = 0;
         while(input > 0){
-            int d = input / 10;
-            int r = input % 10;
-            sum = sum + r;
-            input = d;
+            sum = sum + input % 10;;
+            input = input / 10;;
         }
         return sum;
     }
