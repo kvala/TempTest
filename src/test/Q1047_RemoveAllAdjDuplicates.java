@@ -21,3 +21,9 @@ public class Q1047_RemoveAllAdjDuplicates {
         System.out.println(s.removeDuplicates("abbaca"));
     }
 }
+
+// Complexity Analysis
+
+// Time complexity : O(N), where N is a string length.
+// Space complexity : O(N−D) where D is a total length
+// for all duplicates.
