@@ -8,6 +8,7 @@ public class Q605_CanPlaceFlowers {
                 boolean emptyRightPlot = (i == flowerbed.length - 1) || (flowerbed[i + 1] == 0);
 
                 if (emptyLeftPlot && emptyRightPlot) {
+                    flowerbed[i] = 1;
                     c++;
                 }
             }
