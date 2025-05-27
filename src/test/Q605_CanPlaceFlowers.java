@@ -1,3 +1,5 @@
+|
+
 public class Q605_CanPlaceFlowers {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
         int c = 0;
@@ -13,7 +15,7 @@ public class Q605_CanPlaceFlowers {
                     c++;
 
                     //optimizaton 
-                    if (count >= n) {
+                    if (c >= n) {
                         return true;
                     }
                 }
