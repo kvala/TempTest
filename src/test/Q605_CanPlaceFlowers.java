@@ -8,8 +8,14 @@ public class Q605_CanPlaceFlowers {
                 boolean emptyRightPlot = (i == flowerbed.length - 1) || (flowerbed[i + 1] == 0);
 
                 if (emptyLeftPlot && emptyRightPlot) {
+                    //Mark as planted
                     flowerbed[i] = 1;
                     c++;
+
+                    //optimizaton 
+                    if (count >= n) {
+                        return true;
+                    }
                 }
             }
         }
