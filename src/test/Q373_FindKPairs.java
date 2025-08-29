@@ -24,6 +24,7 @@ public class Q373_FindKPairs {
     return ans;
   }
 
+  //Time: O(klogk)   Space: O(k)
   public List<List<Integer>> kSmallestPairs2(int[] nums1, int[] nums2, int k) {
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
         
